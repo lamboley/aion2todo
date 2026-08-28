@@ -17,7 +17,7 @@
 # This script lints each shell script with `shellcheck`.
 #
 # Usage:
-#   scripts/verify-shellcheck.sh
+#   scripts/lint-shellcheck.sh
 
 set -euo pipefail
 

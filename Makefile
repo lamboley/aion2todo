@@ -12,17 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SHELL := /usr/bin/env bash -o errexit -o pipefail -o nounset
-export BASH_ENV := ./scripts/lib/logging.sh
+##@ Linting
 
-##@ Verifying
+.PHONY: lint-sh
+lint-sh: ## Run shellcheck.
+	scripts/lint-shellcheck.sh
 
-.PHONY: verify-sh
-verify-sh: ## Run shellcheck.
-	scripts/verify-shellcheck.sh
-
-.PHONY: verify
-verify: verify-sh ## Run all verify scripts.
+.PHONY: lint
+lint: lint-sh ## Run all lint scripts.
 
 ##@ Helpers
 
