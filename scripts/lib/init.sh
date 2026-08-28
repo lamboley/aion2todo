@@ -19,4 +19,4 @@ set -euo pipefail
 A2TROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 
 source "${A2TROOT}/scripts/lib/logging.sh"
-source "${A2TROOT}/scripts/util.sh"
+source "${A2TROOT}/scripts/lib/util.sh"
