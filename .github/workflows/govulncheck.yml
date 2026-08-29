@@ -5,11 +5,12 @@ on:
   push:
     branches: ['master']
     tags: ['v*']
+    paths:
+      - go.sum
   schedule:
-    - cron: '33 2 * * *'
+    - cron: '0 0 * * *'
 
-permissions:
-  contents: read
+permissions: read-all
 
 jobs:
   govulncheck:

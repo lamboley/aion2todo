@@ -1,0 +1,73 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "description": "Major updates wait for approval on the dependency dashboard",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "k3s tags carry a +k3s1 build suffix, so strict semver does not apply",
+      "matchDepNames": [
+        "k3s-io/k3s"
+      ],
+      "versioning": "loose"
+    }
+  ],
+  "customManagers": [
+    {
+      "description": "uv version pinned in scripts/install-uv.sh",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^scripts/install-uv\\.sh$/"
+      ],
+      "matchStrings": [
+        "INSTALL_UV_VERSION:-(?<currentValue>[^}\"\\s]+)"
+      ],
+      "depNameTemplate": "astral-sh/uv",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "k3d version pinned in scripts/install-k3d.sh",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^scripts/install-k3d\\.sh$/"
+      ],
+      "matchStrings": [
+        "INSTALL_K3D_VERSION:-(?<currentValue>[^}\"\\s]+)"
+      ],
+      "depNameTemplate": "k3d-io/k3d",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "k3s version pinned in scripts/install-k3s.sh",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^scripts/install-k3s\\.sh$/"
+      ],
+      "matchStrings": [
+        "INSTALL_K3S_VERSION:-(?<currentValue>[^}\"\\s]+)"
+      ],
+      "depNameTemplate": "k3s-io/k3s",
+      "datasourceTemplate": "github-releases"
+    },
+    {
+      "description": "golangci-lint version used by the go lint and update scripts",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^scripts/(lint|update)-golangci-lint\\.sh$/"
+      ],
+      "matchStrings": [
+        "golangci-lint@(?<currentValue>v[\\d.]+)"
+      ],
+      "depNameTemplate": "golangci/golangci-lint",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}
