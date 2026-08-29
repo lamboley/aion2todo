@@ -27,28 +27,28 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 find_files() {
-    find . -not \( \
-        \( \
-        -wholename './.git' \
-        -o -wholename './_output' \
-        -o -wholename './release' \
-        -o -wholename './target' \
-        -o -wholename '*/third_party/*' \
-        -o -wholename '*/vendor/*' \
-        -o -wholename '*/testdata/*' \
-        -o -wholename '*/bindata.go' \
-        \) -prune \
+  find . -not \( \
+    \( \
+    -wholename './.git' \
+    -o -wholename './_output' \
+    -o -wholename './release' \
+    -o -wholename './target' \
+    -o -wholename '*/third_party/*' \
+    -o -wholename '*/vendor/*' \
+    -o -wholename '*/testdata/*' \
+    -o -wholename '*/bindata.go' \
+    \) -prune \
     \) -name '*.go'
 }
 
 gofmt="$(go env GOROOT)/bin/gofmt"
 if [[ ! -x "${gofmt}" ]]; then
-    a2t::log::error "Failed to find $gofmt"
-    exit 1
+  a2t::log::error "Failed to find $gofmt"
+  exit 1
 fi
 
 diff=$(find_files | xargs --no-run-if-empty "${gofmt}" -d -s 2>&1) || true
 if [[ -n "${diff}" ]]; then
-    a2t::log::warn "${diff}" "Run ./scripts/update-gofmt.sh" >&2
-    exit 1
+  a2t::log::warn "${diff}" "Run ./scripts/update-gofmt.sh" >&2
+  exit 1
 fi

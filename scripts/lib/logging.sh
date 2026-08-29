@@ -15,38 +15,38 @@
 # limitations under the License.
 
 function a2t::log::info() {
-    printf '\e[0;30;46mINFO[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
-    shift || true
-    local message
-    for message; do
-        printf '           %s\n' "${message}" >&2
-    done
+  printf '\e[0;30;46mINFO[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
+  shift || true
+  local message
+  for message; do
+    printf '           %s\n' "${message}" >&2
+  done
 }
 
 function a2t::log::warn() {
-    printf '\e[0;30;43mWARN[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
-    shift || true
-    local message
-    for message; do
-        printf '           %s\n' "${message}" >&2
-    done
+  printf '\e[0;30;43mWARN[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
+  shift || true
+  local message
+  for message; do
+    printf '           %s\n' "${message}" >&2
+  done
 }
 
 function a2t::log::error() {
-    printf '\e[0;97;41mERRO[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
-    shift || true
-    local message
-    for message; do
-        printf '           %s\n' "${message}" >&2
-    done
+  printf '\e[0;97;41mERRO[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
+  shift || true
+  local message
+  for message; do
+    printf '           %s\n' "${message}" >&2
+  done
 }
 
 function a2t::log::fatal() {
-    printf '\e[0;97;41mFATA[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
-    shift || true
-    local message
-    for message; do
-        printf '           %s\n' "${message}" >&2
-    done
-    exit 1
+  printf '\e[0;97;41mFATA[%04d]\e[0m %s\n' "${SECONDS}" "${1-}" >&2
+  shift || true
+  local message
+  for message; do
+    printf '           %s\n' "${message}" >&2
+  done
+  exit 1
 }

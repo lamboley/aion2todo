@@ -27,20 +27,20 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 function git_find() {
-    git ls-files -cmo --exclude-standard \
-        ':!:vendor/*'        `# catches vendor/...` \
-        ':!:*/vendor/*'      `# catches any subdir/vendor/...` \
-        ':!:third_party/*'   `# catches third_party/...` \
-        ':!:*/third_party/*' `# catches third_party/...` \
-        ':!:*/testdata/*'    `# catches any subdir/testdata/...` \
-        ':(glob)**/*.go' \
-        "$@"
+  git ls-files -cmo --exclude-standard \
+    ':!:vendor/*' `# catches vendor/...` \
+    ':!:*/vendor/*' `# catches any subdir/vendor/...` \
+    ':!:third_party/*' `# catches third_party/...` \
+    ':!:*/third_party/*' `# catches third_party/...` \
+    ':!:*/testdata/*' `# catches any subdir/testdata/...` \
+    ':(glob)**/*.go' \
+    "$@"
 }
 
 gofmt="$(go env GOROOT)/bin/gofmt"
 if [[ ! -x "${gofmt}" ]]; then
-    a2t::log::error "Failed to find $gofmt"
-    exit 1
+  a2t::log::error "Failed to find $gofmt"
+  exit 1
 fi
 
 git_find -z | xargs -0 --no-run-if-empty "${gofmt}" -s -w

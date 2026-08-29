@@ -27,10 +27,11 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 ret=0
-out=$(go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.11.4 run ./... 2>&1) || ret=$?
+GOLANGCI_LINT="github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.11.4"
+out=$(go run "${GOLANGCI_LINT}" run ./... 2>&1) || ret=$?
 
 if [[ $ret -ne 0 ]]; then
-    echo "${out}" >&2
-    a2t::log::error 'Golangci-lint has failed.'
-    exit 1
+  echo "${out}" >&2
+  a2t::log::error 'Golangci-lint has failed.'
+  exit 1
 fi

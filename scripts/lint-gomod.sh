@@ -30,7 +30,7 @@ ret=0
 out=$(go mod tidy -diff 2>&1) || ret=$?
 
 if [[ $ret -ne 0 ]]; then
-    echo "${out}" >&2
-    a2t::log::error 'Go modules are not tidy. Run scripts/update-gomod.sh'
-    exit 1
+  echo "${out}" >&2
+  a2t::log::error 'Go modules are not tidy. Run scripts/update-gomod.sh'
+  exit 1
 fi

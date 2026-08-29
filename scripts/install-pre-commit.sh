@@ -27,20 +27,20 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 function verify_system() {
-    if ! command -v uv >/dev/null 2>&1; then
-        a2t::log::fatal "uv is required, run scripts/install-uv.sh first"
-    fi
+  if ! command -v uv >/dev/null 2>&1; then
+    a2t::log::fatal "uv is required, run scripts/install-uv.sh first"
+  fi
 }
 
 function install_pre_commit() {
-    a2t::log::info "Installing pre-commit"
-    uv tool install pre-commit
+  a2t::log::info "Installing pre-commit"
+  uv tool install pre-commit
 }
 
 function setup_hooks() {
-    a2t::log::info "Registering git hooks"
-    pre-commit install
-    pre-commit run --all-files
+  a2t::log::info "Registering git hooks"
+  pre-commit install
+  pre-commit run --all-files
 }
 
 verify_system

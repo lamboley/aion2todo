@@ -25,14 +25,14 @@ A2TROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 source "${A2TROOT}/scripts/lib/init.sh"
 
 CLEAN_PATHS=(
-    "coverage"
-    "node_modules"
-    "dist"
-    "web/coverage"
-    "web/node_modules"
-    "web/dist"
+  "coverage"
+  "node_modules"
+  "dist"
+  "web/coverage"
+  "web/node_modules"
+  "web/dist"
 )
 
 for path in "${CLEAN_PATHS[@]}"; do
-    rm -rf "${A2TROOT:?}/${path:?}"
+  rm -rf "${A2TROOT:?}/${path:?}"
 done

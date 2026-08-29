@@ -40,28 +40,29 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 function setup_env() {
-    INSTALL_UV_VERSION=${INSTALL_UV_VERSION:-0.12.7}
-    INSTALL_UV_BIN_DIR="${INSTALL_UV_BIN_DIR:-${HOME}/.local/bin}"
+  INSTALL_UV_VERSION=${INSTALL_UV_VERSION:-0.12.7}
+  INSTALL_UV_BIN_DIR="${INSTALL_UV_BIN_DIR:-${HOME}/.local/bin}"
 }
 
 function download_binary() {
-    local filename="uv-x86_64-unknown-linux-gnu.tar.gz"
-    local url="https://releases.astral.sh/github/uv/releases/download/${INSTALL_UV_VERSION}/${filename}"
+  local filename="uv-x86_64-unknown-linux-gnu.tar.gz"
+  local base_url="https://releases.astral.sh/github/uv/releases/download"
+  local url="${base_url}/${INSTALL_UV_VERSION}/${filename}"
 
-    a2t::util::ensure-temp-dir
+  a2t::util::ensure-temp-dir
 
-    a2t::log::info "Downloading ${url}"
-    a2t::util::download_from_github "${A2T_TEMP}/${filename}" "${url}"
+  a2t::log::info "Downloading ${url}"
+  a2t::util::download_from_github "${A2T_TEMP}/${filename}" "${url}"
 
-    tar --extract --gzip --no-same-owner --strip-components 1 \
-        --file "${A2T_TEMP}/${filename}" --directory "${A2T_TEMP}"
+  tar --extract --gzip --no-same-owner --strip-components 1 \
+    --file "${A2T_TEMP}/${filename}" --directory "${A2T_TEMP}"
 }
 
 function setup_binary() {
-    a2t::log::info "Installing uv to ${INSTALL_UV_BIN_DIR}/uv"
-    a2t::log::info "Installing uvx to ${INSTALL_UV_BIN_DIR}/uvx"
-    mkdir -p "${INSTALL_UV_BIN_DIR}"
-    install -m 0755 "${A2T_TEMP}/uv" "${A2T_TEMP}/uvx" "${INSTALL_UV_BIN_DIR}"
+  a2t::log::info "Installing uv to ${INSTALL_UV_BIN_DIR}/uv"
+  a2t::log::info "Installing uvx to ${INSTALL_UV_BIN_DIR}/uvx"
+  mkdir -p "${INSTALL_UV_BIN_DIR}"
+  install -m 0755 "${A2T_TEMP}/uv" "${A2T_TEMP}/uvx" "${INSTALL_UV_BIN_DIR}"
 }
 
 setup_env
