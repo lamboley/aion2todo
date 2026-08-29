@@ -1,0 +1,82 @@
+version: "2"
+
+run:
+  concurrency: 16
+  build-tags:
+    - integration
+  issues-exit-code: 1
+  tests: true
+
+output:
+  formats:
+    text:
+      path: stdout
+      print-linter-name: true
+      print-issued-lines: true
+      colors: true
+
+linters:
+  enable:
+    - copyloopvar
+    - depguard
+    - errcheck
+    - gochecksumtype
+    - goconst
+    - govet
+    - ineffassign
+    - revive
+    - staticcheck
+    - unconvert
+  disable:
+    - unparam
+    - unused
+  settings:
+    depguard:
+      rules:
+        main:
+          deny:
+            - pkg: log
+              desc: "use zerolog instead of the standard log package"
+            - pkg: io/ioutil
+              desc: "io/ioutil is deprecated, use io and os instead"
+    goconst:
+      min-occurrences: 5
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - revive
+        path: (.*)\.go$
+        text: "avoid meaningless package names"
+      - linters:
+          - revive
+        path: (.*)\.go$
+        text: "avoid package names that conflict with Go standard library"
+      - linters:
+          - goconst
+        path: (.+)_test\.go
+
+issues:
+  fix: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+formatters:
+  enable:
+    - gofmt
+    - gofumpt
+    - goimports
+  settings:
+    gofumpt:
+      module-path: github.com/lamboley/aion2todo
+      extra-rules: true
+    goimports:
+      local-prefixes:
+        - github.com/lamboley/aion2todo
+  exclusions:
+    generated: lax
