@@ -3,7 +3,9 @@
 [![License](https://img.shields.io/github/license/lamboley/aion2todo)](LICENSE)
 [![CI](https://github.com/lamboley/aion2todo/actions/workflows/ci.yml/badge.svg)](https://github.com/lamboley/aion2todo/actions/workflows/ci.yml)
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/14351/badge)](https://www.bestpractices.dev/projects/14351)
+[![Trivy Security Scan](https://github.com/lamboley/aion2todo/actions/workflows/trivy-scan.yml/badge.svg)](https://github.com/lamboley/aion2todo/actions/workflows/trivy-scan.yml)
 [![govulncheck](https://github.com/lamboley/aion2todo/actions/workflows/govulncheck.yml/badge.svg?event=schedule)](https://github.com/lamboley/aion2todo/actions/workflows/govulncheck.yml)
+[![codecov](https://codecov.io/gh/lamboley/aion2todo/branch/master/graph/badge.svg)](https://codecov.io/gh/lamboley/aion2todo)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/lamboley/aion2todo?sort=semver)
 
 A todo tracker for the MMO Aion 2.
