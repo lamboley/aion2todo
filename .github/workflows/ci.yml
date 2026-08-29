@@ -1,0 +1,23 @@
+---
+name: CI
+on:
+  pull_request:
+  push:
+    branches: ['master']
+    tags: ['v*']
+  schedule:
+    - cron: '33 2 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run make lint
+    steps:
+      - id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - id: lint
+        run: make lint
