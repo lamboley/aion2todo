@@ -16,8 +16,9 @@
 
 .PHONY: update-go
 update-go: ## Run `go mod tidy` and gofmt.
-	scripts/update-gofmt.sh
 	scripts/update-gomod.sh
+	scripts/update-gofmt.sh
+	scripts/update-golangci-lint.sh
 
 .PHONY: update
 update: update-go ## Run all update scripts.
