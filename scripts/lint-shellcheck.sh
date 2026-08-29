@@ -26,15 +26,12 @@ source "${A2TROOT}/scripts/lib/init.sh"
 
 cd "${A2TROOT}"
 
-SHELLCHECK_IMAGE="docker.io/koalaman/shellcheck:latest"
+SHELLCHECK_IMAGE="docker.io/koalaman/shellcheck@sha256:7676ebb284f53cc07c016f7b7dd4fa3c9348bfb94d1b21b824cecf7099f9e6ad"
 
-# Find all shell scripts excluding:
-#   - Anything git-ignored
-#   - ./.git/*
 scripts_to_check=()
-while IFS=$'\n' read -r script;
-    do git check-ignore -q "$script" || scripts_to_check+=("$script");
-done < <(find . -name "*.sh" -not -path "./.git/*")
+while IFS= read -r -d '' script; do
+    scripts_to_check+=("${script}")
+done < <(git ls-files --cached --others --exclude-standard -z -- '*.sh')
 
 if [[ "${#scripts_to_check[@]}" -eq 0 ]]; then
     a2t::log::error "No shell scripts found to lint"
@@ -47,7 +44,14 @@ SHELLCHECK_OPTIONS=(
 )
 
 ret=0
-docker run --rm -v "${A2TROOT}:${A2TROOT}" -w "${A2TROOT}" --security-opt label=disable \
+docker run --rm \
+    --network=none \
+    --cap-drop=ALL \
+    --security-opt=no-new-privileges \
+    --read-only \
+    --user "$(id -u):$(id -g)" \
+    --mount "type=bind,src=${A2TROOT},dst=${A2TROOT},readonly" \
+    --workdir "${A2TROOT}" \
     "${SHELLCHECK_IMAGE}" "${SHELLCHECK_OPTIONS[@]}" \
     "${scripts_to_check[@]}" >&2 || ret=$?
 

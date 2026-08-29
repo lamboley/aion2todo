@@ -17,8 +17,6 @@
 # This script installs uv from its GitHub release.
 #
 # Usage:
-#   curl ... | ENV_VAR=... bash -
-#       or
 #   ENV_VAR=... scripts/install-uv.sh
 #
 # Example:

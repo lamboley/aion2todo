@@ -12,14 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##@ Linting
+##@ Update
+
+.PHONY: update-go
+update-go: ## Run `go mod tidy` and gofmt.
+	scripts/update-gofmt.sh
+	scripts/update-gomod.sh
+
+.PHONY: update
+update: update-go ## Run all update scripts.
+
+##@ Lint
 
 .PHONY: lint-sh
 lint-sh: ## Run shellcheck.
 	scripts/lint-shellcheck.sh
 
+.PHONY: lint-go
+lint-go: ## Run all go lint scripts.
+	scripts/lint-gomod.sh
+	scripts/lint-gofmt.sh
+	scripts/lint-golangci-lint.sh
+
 .PHONY: lint
-lint: lint-sh ## Run all lint scripts.
+lint: lint-sh lint-go ## Run all lint scripts.
 
 ##@ Helpers
 

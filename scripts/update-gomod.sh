@@ -14,19 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-function a2t::util::download_from_github() {
-    [ $# -eq 2 ] || a2t::log::fatal 'download_from_github needs exactly 2 arguments'
-
-    curl --proto '=https' --tlsv1.2 -LsSf -o "${1}" "${2}" || a2t::log::fatal "Failed to download ${2}"
-}
-
-# Create a temp dir that'll be deleted at the end of this bash session.
+# This script downloads dependencies and tidies `go.mod`.
 #
-# Vars set:
-#   A2T_TEMP
-function a2t::util::ensure-temp-dir() {
-    if [[ -z "${A2T_TEMP-}" ]]; then
-        A2T_TEMP=$(mktemp -d 2>/dev/null || mktemp -d -t aion2todo.XXXXXX)
-        trap 'rm -rf "${A2T_TEMP}"' EXIT
-    fi
-}
+# Usage:
+#   scripts/update-gomod.sh
+
+set -euo pipefail
+
+A2TROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")"/.. && pwd -P)"
+source "${A2TROOT}/scripts/lib/init.sh"
+
+cd "${A2TROOT}"
+
+go mod download
+go mod tidy
