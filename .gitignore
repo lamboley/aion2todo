@@ -1,6 +1,9 @@
 # Environment
 .env
 
+# Editor
+.vscode/
+
 # Frontend
 /web/node_modules/
 /web/dist/
