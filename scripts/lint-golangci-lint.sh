@@ -27,7 +27,7 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 ret=0
-GOLANGCI_LINT="github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.1"
+GOLANGCI_LINT="github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.2"
 out=$(go run "${GOLANGCI_LINT}" run ./... 2>&1) || ret=$?
 
 if [[ $ret -ne 0 ]]; then
