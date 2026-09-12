@@ -40,7 +40,7 @@ source "${A2TROOT}/scripts/lib/init.sh"
 cd "${A2TROOT}"
 
 function setup_env() {
-  INSTALL_UV_VERSION=${INSTALL_UV_VERSION:-0.12.7}
+  INSTALL_UV_VERSION=${INSTALL_UV_VERSION:-0.12.10}
   INSTALL_UV_BIN_DIR="${INSTALL_UV_BIN_DIR:-${HOME}/.local/bin}"
 }
 
